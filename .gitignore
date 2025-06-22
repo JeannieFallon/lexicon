@@ -1,0 +1,25 @@
+# Editor artifacts
+[._]*.sw[a-p]
+*.bak
+*~
+
+# Ignore large local model files
+models/
+
+# Runtime logs
+logs/
+*.log
+
+# Local environment config
+config/ollama.env
+
+# Persistent data (e.g., session state)
+.data/
+
+# macOS system files
+.DS_Store
+
+# Node/web dev build artifacts (if tooling added later)
+node_modules/
+dist/
+
