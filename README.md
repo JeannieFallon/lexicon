@@ -4,7 +4,11 @@ Lexicon is a portable, local-first code assistant that runs entirely from a USB 
 require internet access to provide syntax help, code explanations, and idiom translation across multiple programming
 languages.
 
-![Lexicon](res/logo.png)
+<p align="center">
+  <img src="res/logo.png" alt="Lexicon Logo" width="400">
+</p>
+
+## Features
 
 ```
 [Laptop] ----X---- [Internet]
@@ -12,9 +16,6 @@ languages.
     ✓
 [USB Drive/Ollama]
 ```
-
-## Features
-
 - Entirely offline operation
 - Designed for privacy: no telemetry, no cloud calls
 - Supports multiple programming languages
@@ -72,7 +73,7 @@ See documentation for more detailed instructions.
 
 ## Documentation
 
-See `docs/` for more:
+See `docs/` for more information:
 - `setup.md` – Full installation and configuration instructions
 - `privacy.md` – Offline verification and network blocking
 - `model-guide.md` – Suggested models and language support
