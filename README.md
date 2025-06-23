@@ -31,12 +31,12 @@ needed for initial setup only.
 
 See documentation for more detailed instructions.
 
-1. Format a USB drive as `exFAT` and name it `LEXICON_USB`.
+1. Format a USB drive as `exFAT` and name it `LEXICON-USB`.
 
 2. Clone this repository onto the USB:
 
     ```bash
-    git clone https://github.com/your-username/lexicon /Volumes/LEXICON_USB/lexicon
+    git clone https://github.com/your-username/lexicon /Volumes/LEXICON-USB/lexicon
     ```
 
 3. Install Ollama on your Mac:
@@ -48,7 +48,7 @@ See documentation for more detailed instructions.
 4. Pull a model into the USB (example: Mistral):
 
     ```bash
-    export OLLAMA_MODELS=/Volumes/LEXICON_USB/lexicon/models
+    export OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
     ```
     ```bash
     ollama pull mistral
@@ -57,7 +57,7 @@ See documentation for more detailed instructions.
 5. Launch Lexicon:
 
     ```bash
-    cd /Volumes/LEXICON_USB/lexicon
+    cd /Volumes/LEXICON-USB/lexicon
     ```
     ```bash
     ./bin/launch.sh
