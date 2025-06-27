@@ -1,6 +1,6 @@
 # Lexicon Setup Guide
 
-Lexicon is a portable, offline coding assistant that runs from a USB stick using local LLMs. This guide walks you through setup on a freshly unboxed USB key.
+Lexicon is a portable, offline coding assistant that runs from a USB stick using local LLMs. This guide walks you through full setup procedures, including USB key prep.
 
 ## System Requirements
 
@@ -15,15 +15,15 @@ Lexicon is designed to run from a USB drive on modern MacBooks with Apple Silico
 
 To check for Metal support, run:
 
-    ```bash
-    system_profiler SPDisplaysDataType | grep Metal
-    ```
+```bash
+system_profiler SPDisplaysDataType | grep Metal
+```
 
 Verify output similar to the following:
 
-    ```bash
-    Metal Support: Metal 3
-    ```
+```bash
+Metal Support: Metal 3
+```
 
 ### USB or SSD Drive
 
@@ -40,69 +40,119 @@ Verify output similar to the following:
 
 ## Procedure
 
-### Prepare the USB Drive
+### Online Setup
+
+This first section is one-time setup that requires internet access to download various components.
+
+#### Prepare the USB Drive
 
 1. Insert the USB flash drive.
 2. Open Disk Utility (Applications > Utilities).
-3. Select the USB device (not just its volume).
-4. Click "Erase" and use the following settings:
-    - Format: exFAT
-    - Scheme: GUID Partition Map
-    - Name: `LEXICON-USB`
-5. Click Erase and wait for it to complete.
+3. On the left menu, select the USB drive from the "External" section. It is likely named `NO NAME` or something similar.
+4. From the top menu bar, select "Erase" and enter the following:
+   - Name: `LEXICON-USB`
+   - Format: `ExFAT` for cross-platform compatibility and support for larger files
+5. Click `Erase` and wait until done.
 
-### Clone the Project
+#### Clone the Project
 
-    ```bash
-    cd /Volumes/LEXICON-USB
-    ```
-    ```bash
-    git clone https://github.com/your-username/lexicon
-    ```
-    ```bash
-    cd lexicon
-    ```
+- Move to the USB drive:
+```bash
+cd /Volumes/LEXICON-USB
+```
+- Clone this project:
+```bash
+git@github.com:JeannieFallon/lexicon.git && cd lexicon
+```
 
-### Install Ollama Runtime (One-Time Host Setup)
+#### Install Ollama Runtime (One-Time Host Setup)
 
-    brew install ollama
-    ```
+- In another terminal pane, use [Homebrew](https://formulae.brew.sh/formula/ollama) to install Ollama on your computer:
+```bash
+brew install ollama
+```
+```
+% ollama -h
+Large language model runner
 
-### Pull a Model to the USB
+Usage:
+  ollama [flags]
+  ollama [command]
 
-Set the model storage path and download a quantized model:
+Available Commands:
+  serve       Start ollama
+  create      Create a model from a Modelfile
+  show        Show information for a model
+  run         Run a model
+  stop        Stop a running model
+  pull        Pull a model from a registry
+  push        Push a model to a registry
+  list        List models
+  ps          List running models
+  cp          Copy a model
+  rm          Remove a model
+  help        Help about any command
 
-    ```bash
-    export OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
-    ```
-    ```bash
-    ollama pull mistral
-    ```
+Flags:
+  -h, --help      help for ollama
+  -v, --version   Show version information
+```
 
-This step requires internet access. Once pulled, the model is stored entirely on the USB.
+#### Pull a Model to the USB
 
-### Launch Lexicon
+- Set an environment variable on your computer to map the model storage path to the USB drive:
+```bash
+export OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
+```
 
-    ```bash
-    ./bin/launch.sh
-    ```
+- Start the Ollama server. If this is the first time running the server, you should see it generatea a new private key in `$HOME/.ollama`:
+ ```bash
+ollama serve
+``` 
 
-This script:
-- Starts the Ollama backend
-- Serves the Lexicon web interface at http://localhost:8000
+- In another terminal pane on your computer, use Ollama to download a quantized model[^1] onto the USB drive:
+```bash
+ollama pull mistral
+```
 
-Open that link in your browser to use Lexicon fully offline.
+- To confirm that the model has downloaded onto the USB drive, check its disk usage. You should see around 4GB in the `models/` directory:
+```
+% du -sh /Volumes/LEXICON-USB/lexicon/models/ 
+3.8G    /Volumes/LEXICON-USB/lexicon/models/
+```
 
-### Optional: Configure Environment
+### Offline Usage
 
-Edit this file to set runtime options:
+From this point on, no internet access is required. **Note**: you will need internet access to download and use additional models.
 
-    config/ollama.env
+#### Launch Lexicon
 
-Example:
+- Inside the Lexicon project, run the following script to start Ollama and serve the Lexicon web interface:
+```bash
+cd /Volumes/LEXICON-USB/lexicon
+```
+```bash
+./bin/launch.sh
+```
+- Open the following in your web browser to use the Lexicon web interface, fully offline:
+```
+http://localhost:8000
+```
 
-    OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
-    OLLAMA_HOST=localhost:11434
+#### Optional: Configure Environment
+
+To set runtime options, edit the following file:
+
+```bash
+config/ollama.env
+```
+
+Set the following two key-value pairs:
+
+```bash
+OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
+OLLAMA_HOST=localhost:11434
+```
 
 ## Notes
 
@@ -118,4 +168,10 @@ Example:
 - [Ollama GitHub (Open Source)](https://github.com/ollama/ollama)
 - [Apple Disk Utility Guide](https://support.apple.com/guide/disk-utility/erase-and-reformat-storage-devices-dskutl14079/mac)
 - [Apple Metal Acceleration](https://developer.apple.com/metal/)
+
+
+[^1]: *Quantized models* are smaller, optimized versions of large language models. Instead of storing all weights in full precision 
+(like 16 or 32 bits), quantized models use lower precision (like 4 or 8 bits), drastically reducing file size and memory requirements. 
+This makes them much more practical to run locally on consumer hardware without losing much accuracy in responses. For a technical 
+introduction, see [Hugging Face's guide to model quantization](https://huggingface.co/docs/transformers/perf_train_gpu_one#model-quantization).
 
