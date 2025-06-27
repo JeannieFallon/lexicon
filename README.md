@@ -21,17 +21,13 @@ languages.
 - Supports multiple programming languages
 - Simple, static web UI for interaction
 - USB-based, self-contained environment
-
-## System Requirements
-
-Lexicon requires macOS with Apple Silicon (M2+ recommended) for optimal Metal-accelerated inference. Internet connection
-needed for initial setup only.
+- Intended for use on macOS with Apple Silicon (M2+ recommended)
 
 ## Quick Start
 
-See documentation for more detailed instructions.
+See [Setup Procedure](#setup-procedure) for more detailed instructions.
 
-1. Format a USB drive as `exFAT` and name it `LEXICON-USB`.
+1. Using macOS Disk Utility, format a USB drive as `exFAT` and name it `LEXICON-USB`.
 
 2. Clone this repository onto the USB:
 
@@ -45,8 +41,10 @@ See documentation for more detailed instructions.
     brew install ollama
     ```
 
-4. Pull a model into the USB (example: Mistral):
+4. Start the Ollama server and pull a model into the USB (example: Mistral):
 
+     ```bash
+    ollama serve
     ```bash
     export OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
     ```
@@ -63,21 +61,181 @@ See documentation for more detailed instructions.
     ./bin/launch.sh
     ```
 
-## Project Structure
+## System Requirements
 
-- `bin/` – Executable scripts (launch, install, health checks)
-- `config/` – Local environment and configuration files
-- `models/` – Downloaded model files (large, not tracked in Git)
-- `webui/lexicon/` – Static web UI (HTML, JS, CSS)
-- `README.md` – Project overview and quick start instructions
+Lexicon is designed to run from a USB drive on modern MacBooks with Apple Silicon and Metal acceleration.  Lexicon
+requires macOS with Apple Silicon (M2+ recommended) for optimal Metal-accelerated inference. Internet connection needed
+for initial setup only.
 
-## Documentation
+### Computer
 
-See `docs/` for more information:
-- `setup.md` – Full installation and configuration instructions
-- `privacy.md` – Offline verification and network blocking
-- `model-guide.md` – Suggested models and language support
+- macOS 13+ (Ventura or later)
+- Apple Silicon
+- 16GB RAM minimum
+- Metal support (required for GPU acceleration)
+
+To check for Metal support, run:
+
+```bash
+system_profiler SPDisplaysDataType | grep Metal
+```
+
+Verify output similar to the following:
+
+```bash
+Metal Support: Metal 3
+```
+
+### USB or SSD Drive
+
+- 256GB+ recommended (128GB minimum for a single 7B model, tooling, and cache)
+- USB 3.2 Gen 1 or better (supports ≥400MB/s read speeds)
+- USB-C connection for easiest use on modern Apple products
+
+**Drive types:**
+
+- *Budget option*: High-speed USB-C flash drive (e.g., SanDisk Ultra Luxe)
+- *Performance option*: Portable SSD (e.g., Samsung T7 Shield with ~1050MB/s)
+
+**Note**: Slower drives may bottleneck model load times or impact performance during inference.
+
+## Setup Procedure
+
+### Online Setup
+
+This first section is one-time setup that requires internet access to download various components.
+
+#### Prepare the USB Drive
+
+1. Insert the USB flash drive.
+2. Open Disk Utility (Applications > Utilities).
+3. On the left menu, select the USB drive from the "External" section. It is likely named `NO NAME` or something similar.
+4. From the top menu bar, select "Erase" and enter the following:
+   - Name: `LEXICON-USB`
+   - Format: `ExFAT` for cross-platform compatibility and support for larger files
+5. Click `Erase` and wait until done.
+
+#### Clone the Project
+
+- Move to the USB drive:
+```bash
+cd /Volumes/LEXICON-USB
+```
+- Clone this project:
+```bash
+git@github.com:JeannieFallon/lexicon.git && cd lexicon
+```
+
+#### Install Ollama Runtime (One-Time Host Setup)
+
+- In another terminal pane, use [Homebrew](https://formulae.brew.sh/formula/ollama) to install Ollama on your computer:
+```bash
+brew install ollama
+```
+```
+% ollama -h
+Large language model runner
+
+Usage:
+  ollama [flags]
+  ollama [command]
+
+Available Commands:
+  serve       Start ollama
+  create      Create a model from a Modelfile
+  show        Show information for a model
+  run         Run a model
+  stop        Stop a running model
+  pull        Pull a model from a registry
+  push        Push a model to a registry
+  list        List models
+  ps          List running models
+  cp          Copy a model
+  rm          Remove a model
+  help        Help about any command
+
+Flags:
+  -h, --help      help for ollama
+  -v, --version   Show version information
+```
+
+#### Pull a Model to the USB
+
+- Set an environment variable on your computer to map the model storage path to the USB drive:
+```bash
+export OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
+```
+
+- Start the Ollama server. If this is the first time running the server, you should see it generatea a new private key in `$HOME/.ollama`:
+ ```bash
+ollama serve
+```
+
+- In another terminal pane on your computer, use Ollama to download a quantized model[^1] onto the USB drive:
+```bash
+ollama pull mistral
+```
+
+- To confirm that the model has downloaded onto the USB drive, check its disk usage. You should see around 4GB in the `models/` directory:
+```
+% du -sh /Volumes/LEXICON-USB/lexicon/models/ 
+3.8G    /Volumes/LEXICON-USB/lexicon/models/
+```
+
+### Offline Usage
+
+From this point on, no internet access is required. **Note**: you will need internet access to download and use additional models.
+
+#### Launch Lexicon
+
+- Inside the Lexicon project, run the following script to start Ollama and serve the Lexicon web interface:
+```bash
+cd /Volumes/LEXICON-USB/lexicon
+```
+```bash
+./bin/launch.sh
+```
+- Open the following in your web browser to use the Lexicon web interface, fully offline:
+```
+http://localhost:8000
+```
+
+#### Optional: Configure Environment
+
+To set runtime options, edit the following file:
+
+```bash
+config/ollama.env
+```
+
+Set the following two key-value pairs:
+
+```bash
+OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
+OLLAMA_HOST=localhost:11434
+```
+
+## Notes
+
+- Lexicon is optimized for MacBooks with M2 or newer chips (Metal acceleration).
+- Once models are downloaded, Lexicon requires no internet to run.
+- You can add more models or prompts later to expand its capabilities.
+
+## References
+
+- [Ollama Runtime](https://ollama.com)
+- [Ollama Docs](https://ollama.com/library)
+- [Available Models](https://ollama.com/library)
+- [Ollama GitHub (Open Source)](https://github.com/ollama/ollama)
+- [Apple Disk Utility Guide](https://support.apple.com/guide/disk-utility/erase-and-reformat-storage-devices-dskutl14079/mac)
+- [Apple Metal Acceleration](https://developer.apple.com/metal/)
 
 ## License
 
 MIT. See `LICENSE` file for full terms.
+
+[^1]: *Quantized models* are smaller, optimized versions of large language models. Instead of storing all weights in full precision 
+(like 16 or 32 bits), quantized models use lower precision (like 4 or 8 bits), drastically reducing file size and memory requirements. 
+This makes them much more practical to run locally on consumer hardware without losing much accuracy in responses. For a technical 
+introduction, see [Hugging Face's guide to model quantization](https://huggingface.co/docs/transformers/perf_train_gpu_one#model-quantization).
+
