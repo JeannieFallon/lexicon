@@ -43,8 +43,9 @@ See [Setup Procedure](#setup-procedure) for more detailed instructions.
 
 4. Start the Ollama server and pull a model into the USB (example: Mistral):
 
-     ```bash
+    ```bash
     ollama serve
+    ```
     ```bash
     export OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
     ```
@@ -59,6 +60,33 @@ See [Setup Procedure](#setup-procedure) for more detailed instructions.
     ```
     ```bash
     ./bin/launch.sh
+    ```
+
+
+
+6. **CLI**: Run the following command to use Lexicon from the command line, fully offline. **Note**: wait for the `>>>` prompt to begin typing your question:
+
+    ```bash
+    ollama run mistral
+    ```
+    ```
+    % ollama run mistral
+    >>> Can you show me a for loop in Rust?
+    Sure! Here is an example of a `for` loop in Rust. This code will iterate over the numbers from 1 to 5 and print them out:
+  
+    fn main() {
+      let numbers = vec![1, 2, 3, 4, 5];
+  
+      for number in &numbers {
+          println!("{}", number);
+       }
+    }
+    ```
+    
+ 7. **Web UI**: Open the following in your web browser to use the Lexicon web interface, fully offline:
+
+    ```
+    http://localhost:8000
     ```
 
 ## System Requirements
