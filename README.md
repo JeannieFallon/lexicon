@@ -78,7 +78,7 @@ See [System Requirements](#system-requirements) and [Setup Procedure](#setup-pro
     ```
     ```
     % ollama run codellama
-        >>> /?
+    >>> /?
     Available Commands:
       /set            Set session variables
       /show           Show model information
