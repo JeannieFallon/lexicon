@@ -1,7 +1,7 @@
 // Application state and configuration
 const CONFIG = {
   API_URL: 'http://localhost:11434/api/chat',
-  MODEL: 'mistral',
+  MODEL: 'codellama',
   TIMEOUT: 30000, // 30 seconds
   MAX_RETRIES: 3
 };

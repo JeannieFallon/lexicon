@@ -1,4 +1,3 @@
-    
 <p align="center">
   <img src="res/web-ui.png" alt="Lexicon Logo" width="400">
 </p>
@@ -23,6 +22,13 @@ languages.
 - Both command-line and web UI operation
 - USB-based, self-contained environment
 - Intended for use on macOS with Apple Silicon (M2+ recommended)
+
+### Default Model: CodeLlama
+
+Lexicon uses CodeLlama, a model optimized for code generation and explanation across multiple languages. Visit [Ollama's
+model library](https://ollama.com/library) to browse other available models. You can use another model by swapping out
+the model name anywhere that `codellama` is referenced in the procedure.
+
 
 ## Quick Start
 
@@ -61,17 +67,17 @@ See [Setup Procedure](#setup-procedure) for more detailed instructions.
 6. Download a model to the USB:
 
     ```bash
-    ollama pull mistral
+    ollama pull codellama
     ```
 
 7. **CLI**: Run the following command to use Lexicon from the command line, fully offline. **Note**: wait for the `>>>` prompt to
     begin typing your question, and run `/?` to see available commands:
 
     ```bash
-    ollama run mistral
+    ollama run codellama
     ```
     ```
-    % ollama run mistral
+    % ollama run codellama
         >>> /?
     Available Commands:
       /set            Set session variables
@@ -82,21 +88,27 @@ See [Setup Procedure](#setup-procedure) for more detailed instructions.
       /bye            Exit
       /?, /help       Help for a command
       /? shortcuts    Help for keyboard shortcuts
-    
+
     Use """ to begin a multi-line message.
-    
+
     >>> Can you show me a for loop in Rust?
-    Sure! Here is an example of a `for` loop in Rust. This code will iterate over the numbers from 1 to 5 and print them out:
-  
+
+    Certainly! Here is an example of a `for` loop in Rust:
+
     fn main() {
-      let numbers = vec![1, 2, 3, 4, 5];
-  
-      for number in &numbers {
-          println!("{}", number);
-       }
+        let numbers = vec![1, 2, 3, 4, 5];
+
+        for number in numbers {
+            println!("{}", number);
+        }
     }
+
+    This code will print the values of `numbers` to the console. The loop iterates over
+    each value in the vector and prints it using the `println!` macro.
+
+    You can also use a `for` loop to iterate . . .
     ```
-    
+
  8. **Web UI**: Open the following in your web browser to use the Lexicon web interface, fully offline:
 
     ```
@@ -169,9 +181,9 @@ This first section is one-time setup that requires internet access to download v
 
 6. Click **Erase** and wait for the process to complete.
 
-**Note**: if APFS doesn’t appear as an option, try these steps:  
-- First erase the device as **Mac OS Extended (Journaled)** with **GUID Partition Map**.  
-- Then immediately erase it again — APFS will now become selectable.  
+**Note**: if APFS doesn’t appear as an option, try these steps:
+- First erase the device as **Mac OS Extended (Journaled)** with **GUID Partition Map**.
+- Then immediately erase it again — APFS will now become selectable.
 
 This ensures your USB has a modern GUID partition map and supports APFS formatting fully.
 
@@ -241,12 +253,12 @@ ollama serve
 
 - In another terminal pane on your computer, use Ollama to download a quantized model[^1] onto the USB drive:
 ```bash
-ollama pull mistral
+ollama pull codellama
 ```
 
 - To confirm that the model has downloaded onto the USB drive, check its disk usage. You should see around 4GB in the `models/` directory:
 ```
-% du -sh /Volumes/LEXICON-USB/lexicon/models/ 
+% du -sh /Volumes/LEXICON-USB/lexicon/models/
 3.8G    /Volumes/LEXICON-USB/lexicon/models/
 ```
 
@@ -287,8 +299,8 @@ http://localhost:8000
 
 MIT. See `LICENSE` file for full terms.
 
-[^1]: *Quantized models* are smaller, optimized versions of large language models. Instead of storing all weights in full precision 
-(like 16 or 32 bits), quantized models use lower precision (like 4 or 8 bits), drastically reducing file size and memory requirements. 
-This makes them much more practical to run locally on consumer hardware without losing much accuracy in responses. For a technical 
+[^1]: *Quantized models* are smaller, optimized versions of large language models. Instead of storing all weights in full precision
+(like 16 or 32 bits), quantized models use lower precision (like 4 or 8 bits), drastically reducing file size and memory requirements.
+This makes them much more practical to run locally on consumer hardware without losing much accuracy in responses. For a technical
 introduction, see [Hugging Face's guide to model quantization](https://huggingface.co/docs/transformers/perf_train_gpu_one#model-quantization).
 
