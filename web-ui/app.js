@@ -35,7 +35,7 @@ function initializeApp() {
 
   // Add event listeners
   elements.sendButton.addEventListener('click', handleSendClick);
-  elements.promptTextarea.addEventListener('keydown', handleKeydown);
+  elements.promptTextarea.addEventListener('keydown', handleTextareaKeydown);
   
   // Handle form submission if form exists
   if (elements.form) {
@@ -52,12 +52,34 @@ function handleFormSubmit(event) {
   handleSendClick();
 }
 
-// Handle keyboard shortcuts
-function handleKeydown(event) {
-  // Ctrl/Cmd + Enter to send
-  if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+// Enhanced keyboard handling for textarea
+function handleTextareaKeydown(event) {
+  // Enter key behavior
+  if (event.key === 'Enter') {
+    // Shift+Enter: Insert new line (default behavior)
+    if (event.shiftKey) {
+      return; // Let the default behavior happen (new line)
+    }
+    
+    // Ctrl/Cmd+Enter: Force send (same as before)
+    if (event.ctrlKey || event.metaKey) {
+      event.preventDefault();
+      handleSendClick();
+      return;
+    }
+    
+    // Plain Enter: Auto-submit (new behavior)
     event.preventDefault();
     handleSendClick();
+  }
+  
+  // Escape key: Cancel request if loading, or clear textarea if not
+  if (event.key === 'Escape') {
+    if (STATE.isLoading) {
+      cancelRequest();
+    } else {
+      elements.promptTextarea.value = '';
+    }
   }
 }
 

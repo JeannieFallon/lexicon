@@ -273,9 +273,9 @@ pre:empty::before {
 }
 
 .success {
-  color: var(--success) !important;
-  background: var(--success-bg) !important;
-  border-color: var(--success) !important;
+  color: var(--primary-hover) !important;
+  background: rgba(99, 102, 241, 0.05) !important;
+  border-color: var(--primary-color) !important;
 }
 
 .info {
