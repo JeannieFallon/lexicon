@@ -165,25 +165,19 @@ This first section is one-time setup that requires internet access to download v
 
 1. Insert your USB flash drive.
 2. Open **Disk Utility** (Applications > Utilities).
-3. In the *View* menu, select *Show All Devices*. This is critical to ensure that you can select the *entire device* and not just a single volume.
-4. In the left sidebar group labeled *External*, select the *top-level USB device* (not the indented volume beneath it).
-5. Click **Erase** and choose one of the following options:
-
-   - **For macOS-only use (recommended):**
-     - Name: `LEXICON-USB`
-     - Format: `APFS`
-     - Scheme: `GUID Partition Map`
-
-   - **For cross-platform use (if you want to use the USB key on a Windows or Linux system):**
-     - Name: `LEXICON-USB`
-     - Format: `exFAT`
-     - Scheme: `GUID Partition Map`
-
+3. In the *View* menu, select *Show All Devices*. This is critical to ensure that you can select the entire device and not just a single volume.
+4. In the left sidebar group labeled *External*, select the top-level USB device.
+5. Click **Erase** and select the following options:
+   - Name: `LEXICON-USB`
+   - Format: `APFS`
+     - **Note**: For cross-platform use on either a Windows or Linux system, select `exFAT`.
+   - Scheme: `GUID Partition Map`
 6. Click **Erase** and wait for the process to complete.
 
-**Note**: if APFS doesn’t appear as an option, try these steps:
-- First erase the device as **Mac OS Extended (Journaled)** with **GUID Partition Map**.
-- Then immediately erase it again — APFS will now become selectable.
+**Note**: If `APFS` isn't an option for format, try the following steps:
+- First erase the device as `Mac OS Extended (Journaled)` with `GUID Partition Map`.
+- Then repeat the erase procedure, and the `APFS` option should now be available.
+- Alternatively, you can use `exFAT` for Lexicon, but `APFS` is optimized for performance on macOS.
 
 This ensures your USB has a modern GUID partition map and supports APFS formatting fully.
 
