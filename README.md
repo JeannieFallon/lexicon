@@ -32,7 +32,7 @@ the model name anywhere that `codellama` is referenced in the procedure.
 
 ## Quick Start
 
-See [Setup Procedure](#setup-procedure) for more detailed instructions.
+See [System Requirements](#system-requirements) and [Setup Procedure](#setup-procedure) for more detailed instructions.
 
 1. Using macOS Disk Utility, format a USB drive as `APFS` and name it `LEXICON-USB`.
 
