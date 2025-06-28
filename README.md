@@ -280,11 +280,17 @@ cd /Volumes/LEXICON-USB/lexicon
 http://localhost:8000
 ```
 
-## Notes
+## Note: macOS Firewall Prompts
 
-- Lexicon is optimized for MacBooks with M2 or newer chips (Metal acceleration).
-- Once models are downloaded, Lexicon requires no internet to run.
-- You can add more models or prompts later to expand its capabilities.
+When you run Lexicon's local web server, macOS may prompt:
+
+> "Python.app wants to accept incoming network connections"
+
+- This is **NOT** triggered by any request for WAN access.
+- `http.server` is serving local requests only to your browser on `localhost:8000`.
+- macOS firewall still sees the activity as a request for network access.
+- You can safely allow this and continue to use Lexicon fully offline. 
+- If you deny it, the web UI will fail to load locally but the CLI option will still function.
 
 ## References
 
