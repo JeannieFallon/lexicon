@@ -288,8 +288,8 @@ When you run Lexicon's local web server, macOS may prompt:
 ## References
 
 - [Ollama Runtime](https://ollama.com)
-- [Ollama Docs](https://ollama.com/library)
-- [Available Models](https://ollama.com/library)
+- [CodeLlama Model](https://ollama.com/library/codellama)
+- [List of Available Models](https://ollama.com/library)
 - [Ollama GitHub (Open Source)](https://github.com/ollama/ollama)
 - [Apple Disk Utility Guide](https://support.apple.com/guide/disk-utility/erase-and-reformat-storage-devices-dskutl14079/mac)
 - [Apple Metal Acceleration](https://developer.apple.com/metal/)
@@ -301,5 +301,5 @@ MIT. See `LICENSE` file for full terms.
 [^1]: *Quantized models* are smaller, optimized versions of large language models. Instead of storing all weights in full precision
 (like 16 or 32 bits), quantized models use lower precision (like 4 or 8 bits), drastically reducing file size and memory requirements.
 This makes them much more practical to run locally on consumer hardware without losing much accuracy in responses. For a technical
-introduction, see [Hugging Face's guide to model quantization](https://huggingface.co/docs/transformers/perf_train_gpu_one#model-quantization).
+introduction, see [Hugging Face's guide to model quantization](https://huggingface.co/docs/transformers/v4.52.3/quantization/overview).
 
