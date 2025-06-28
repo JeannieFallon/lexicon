@@ -117,9 +117,8 @@ See [System Requirements](#system-requirements) and [Setup Procedure](#setup-pro
 
 ## System Requirements
 
-Lexicon is designed to run from a USB drive on modern MacBooks with Apple Silicon and Metal acceleration.  Lexicon
-requires macOS with Apple Silicon (M2+ recommended) for optimal Metal-accelerated inference. Internet connection needed
-for initial setup only.
+Lexicon is designed to run models on modern MacBooks with Apple Silicon and Metal-accelerated inference. 
+Internet connection is required for initial setup only.
 
 ### Computer
 
@@ -127,7 +126,7 @@ for initial setup only.
   - Apple Silicon (M2 or later) with Metal acceleration
   - 16GB RAM minimum
 - Operating System
-  - macOS 13+ (Ventura or later)
+  - macOS 13 (Ventura or later)
 
 
 To check for Metal support, run:
@@ -144,9 +143,9 @@ Metal Support: Metal 3
 
 ### USB or SSD Drive
 
-- 256GB+ recommended (128GB minimum for a single 7B model, tooling, and cache)
+- 256GB recommended
 - USB 3.2 Gen 1 or better (supports ≥400MB/s read speeds)
-- USB-C connection for easiest use on modern Apple products
+- USB-C connection for ease of use on modern Apple products
 
 **Drive types:**
 
