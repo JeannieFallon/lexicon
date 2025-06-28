@@ -1,12 +1,13 @@
+    
+<p align="center">
+  <img src="res/web-ui.png" alt="Lexicon Logo" width="400">
+</p>
+
 # Lexicon
 
 Lexicon is a portable, local-first code assistant that runs entirely from a USB stick using local LLMs. It does not
 require internet access to provide syntax help, code explanations, and idiom translation across multiple programming
 languages.
-
-<p align="center">
-  <img src="res/logo.png" alt="Lexicon Logo" width="400">
-</p>
 
 ## Features
 
@@ -19,7 +20,7 @@ languages.
 - Entirely offline operation
 - Designed for privacy: no telemetry, no cloud calls
 - Supports multiple programming languages
-- Simple, static web UI for interaction
+- Both command-line and web UI operation
 - USB-based, self-contained environment
 - Intended for use on macOS with Apple Silicon (M2+ recommended)
 
@@ -266,11 +267,6 @@ cd /Volumes/LEXICON-USB/lexicon
 ```
 http://localhost:8000
 ```
-
-<p align="center">
-  <img src="res/web-ui.png" alt="Lexicon Logo" width="400">
-</p>
-
 
 ## Notes
 
