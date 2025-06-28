@@ -41,25 +41,29 @@ See [Setup Procedure](#setup-procedure) for more detailed instructions.
     brew install ollama
     ```
 
-4. Start the Ollama server and download a model to the USB:
+4. Add and update an Ollama environment file:
 
     ```bash
-    ollama serve
+    vim /Volumes/LEXICON-USB/lexicon/config/ollama.env
     ```
+    ```conf
+    OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
+    OLLAMA_HOST=localhost:11434
+    ```
+
+5. Launch Lexicon, which will start the Ollama server:
+
     ```bash
-    export OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
+    cd /Volumes/LEXICON-USB/lexicon && ./launch.sh
     ```
+
+6. Download a model to the USB:
+
     ```bash
     ollama pull mistral
     ```
 
-5. Launch Lexicon:
-
-    ```bash
-    cd /Volumes/LEXICON-USB/lexicon && ./bin/launch.sh
-    ```
-
-6. **CLI**: Run the following command to use Lexicon from the command line, fully offline. **Note**: wait for the `>>>` prompt to
+7. **CLI**: Run the following command to use Lexicon from the command line, fully offline. **Note**: wait for the `>>>` prompt to
     begin typing your question, and run `/?` to see available commands:
 
     ```bash
@@ -216,9 +220,17 @@ Flags:
 
 #### Pull a Model to the USB
 
-- Set an environment variable on your computer to map the model storage path to the USB drive:
+- Create an Ollama configuration file:
+
 ```bash
-export OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
+vim /Volumes/LEXICON-USB/lexicon/config/ollama.env
+```
+
+- Add the following two key-value pairs to set the model storage path and the web app port:
+
+```bash
+OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
+OLLAMA_HOST=localhost:11434
 ```
 
 - Start the Ollama server. If this is the first time running the server, you should see it generatea a new private key in `$HOME/.ollama`:
@@ -248,27 +260,13 @@ From this point on, no internet access is required. **Note**: you will need inte
 cd /Volumes/LEXICON-USB/lexicon
 ```
 ```bash
-./bin/launch.sh
+./launch.sh
 ```
 - Open the following in your web browser to use the Lexicon web interface, fully offline:
 ```
 http://localhost:8000
 ```
 
-#### Optional: Configure Environment
-
-To set runtime options, edit the following file:
-
-```bash
-config/ollama.env
-```
-
-Set the following two key-value pairs:
-
-```bash
-OLLAMA_MODELS=/Volumes/LEXICON-USB/lexicon/models
-OLLAMA_HOST=localhost:11434
-```
 
 ## Notes
 
