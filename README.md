@@ -41,7 +41,7 @@ See [Setup Procedure](#setup-procedure) for more detailed instructions.
     brew install ollama
     ```
 
-4. Start the Ollama server and pull a model into the USB (example: Mistral):
+4. Start the Ollama server and download a model to the USB:
 
     ```bash
     ollama serve
@@ -56,13 +56,8 @@ See [Setup Procedure](#setup-procedure) for more detailed instructions.
 5. Launch Lexicon:
 
     ```bash
-    cd /Volumes/LEXICON-USB/lexicon
+    cd /Volumes/LEXICON-USB/lexicon && ./bin/launch.sh
     ```
-    ```bash
-    ./bin/launch.sh
-    ```
-
-
 
 6. **CLI**: Run the following command to use Lexicon from the command line, fully offline. **Note**: wait for the `>>>` prompt to begin typing your question:
 
