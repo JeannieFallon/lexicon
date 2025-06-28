@@ -267,6 +267,10 @@ cd /Volumes/LEXICON-USB/lexicon
 http://localhost:8000
 ```
 
+<p align="center">
+  <img src="res/web-ui.png" alt="Lexicon Logo" width="400">
+</p>
+
 
 ## Notes
 
