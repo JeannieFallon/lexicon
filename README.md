@@ -27,7 +27,7 @@ languages.
 
 See [Setup Procedure](#setup-procedure) for more detailed instructions.
 
-1. Using macOS Disk Utility, format a USB drive as `exFAT` and name it `LEXICON-USB`.
+1. Using macOS Disk Utility, format a USB drive as `APFS` and name it `LEXICON-USB`.
 
 2. Clone this repository onto the USB:
 
@@ -59,13 +59,27 @@ See [Setup Procedure](#setup-procedure) for more detailed instructions.
     cd /Volumes/LEXICON-USB/lexicon && ./bin/launch.sh
     ```
 
-6. **CLI**: Run the following command to use Lexicon from the command line, fully offline. **Note**: wait for the `>>>` prompt to begin typing your question:
+6. **CLI**: Run the following command to use Lexicon from the command line, fully offline. **Note**: wait for the `>>>` prompt to
+    begin typing your question, and run `/?` to see available commands:
 
     ```bash
     ollama run mistral
     ```
     ```
     % ollama run mistral
+        >>> /?
+    Available Commands:
+      /set            Set session variables
+      /show           Show model information
+      /load <model>   Load a session or model
+      /save <model>   Save your current session
+      /clear          Clear session context
+      /bye            Exit
+      /?, /help       Help for a command
+      /? shortcuts    Help for keyboard shortcuts
+    
+    Use """ to begin a multi-line message.
+    
     >>> Can you show me a for loop in Rust?
     Sure! Here is an example of a `for` loop in Rust. This code will iterate over the numbers from 1 to 5 and print them out:
   
@@ -78,7 +92,7 @@ See [Setup Procedure](#setup-procedure) for more detailed instructions.
     }
     ```
     
- 7. **Web UI**: Open the following in your web browser to use the Lexicon web interface, fully offline:
+ 8. **Web UI**: Open the following in your web browser to use the Lexicon web interface, fully offline:
 
     ```
     http://localhost:8000
@@ -92,10 +106,12 @@ for initial setup only.
 
 ### Computer
 
-- macOS 13+ (Ventura or later)
-- Apple Silicon
-- 16GB RAM minimum
-- Metal support (required for GPU acceleration)
+- Hardware
+  - Apple Silicon (M2 or later) with Metal acceleration
+  - 16GB RAM minimum
+- Operating System
+  - macOS 13+ (Ventura or later)
+
 
 To check for Metal support, run:
 
@@ -130,13 +146,29 @@ This first section is one-time setup that requires internet access to download v
 
 #### Prepare the USB Drive
 
-1. Insert the USB flash drive.
-2. Open Disk Utility (Applications > Utilities).
-3. On the left menu, select the USB drive from the "External" section. It is likely named `NO NAME` or something similar.
-4. From the top menu bar, select "Erase" and enter the following:
-   - Name: `LEXICON-USB`
-   - Format: `ExFAT` for cross-platform compatibility and support for larger files
-5. Click `Erase` and wait until done.
+1. Insert your USB flash drive.
+2. Open **Disk Utility** (Applications > Utilities).
+3. In the *View* menu, select *Show All Devices*. This is critical to ensure that you can select the *entire device* and not just a single volume.
+4. In the left sidebar group labeled *External*, select the *top-level USB device* (not the indented volume beneath it).
+5. Click **Erase** and choose one of the following options:
+
+   - **For macOS-only use (recommended):**
+     - Name: `LEXICON-USB`
+     - Format: `APFS`
+     - Scheme: `GUID Partition Map`
+
+   - **For cross-platform use (if you want to use the USB key on a Windows or Linux system):**
+     - Name: `LEXICON-USB`
+     - Format: `exFAT`
+     - Scheme: `GUID Partition Map`
+
+6. Click **Erase** and wait for the process to complete.
+
+**Note**: if APFS doesn’t appear as an option, try these steps:  
+- First erase the device as **Mac OS Extended (Journaled)** with **GUID Partition Map**.  
+- Then immediately erase it again — APFS will now become selectable.  
+
+This ensures your USB has a modern GUID partition map and supports APFS formatting fully.
 
 #### Clone the Project
 
