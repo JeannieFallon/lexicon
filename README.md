@@ -32,7 +32,7 @@ See [Setup Procedure](#setup-procedure) for more detailed instructions.
 2. Clone this repository onto the USB:
 
     ```bash
-    git clone https://github.com/your-username/lexicon /Volumes/LEXICON-USB/lexicon
+    git clone https://github.com/JeannieFallon/lexicon /Volumes/LEXICON-USB/lexicon
     ```
 
 3. Install Ollama on your Mac:
