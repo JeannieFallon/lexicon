@@ -1,8 +1,8 @@
 // Application state and configuration
 const CONFIG = {
   API_URL: 'http://localhost:11434/api/chat',
-  MODEL: 'codellama',
-  TIMEOUT: 30000, // 30 seconds
+  MODEL: 'qwen2.5-coder',
+  TIMEOUT: 180000, // 3 minutes to allow for first-time load
   MAX_RETRIES: 3
 };
 
@@ -151,6 +151,7 @@ async function fetchWithTimeout(prompt, signal) {
   }, CONFIG.TIMEOUT);
 
   try {
+    console.log('Lexicon using model:', CONFIG.MODEL);
     const response = await fetch(CONFIG.API_URL, {
       method: 'POST',
       headers: {

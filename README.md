@@ -23,12 +23,37 @@ languages.
 - USB-based, self-contained environment
 - Intended for use on macOS with Apple Silicon (M2+ recommended)
 
-### Default Model: CodeLlama
+### Default Model: Qwen2.5-Coder
 
-Lexicon uses CodeLlama, a model optimized for code generation and explanation across multiple languages. Visit [Ollama's
-model library](https://ollama.com/library) to browse other available models. You can use another model by swapping out
-the model name anywhere that `codellama` is referenced in the procedure.
+Lexicon uses Qwen2.5-Coder, a model optimized for code generation and explanation across multiple
+languages. Because this project was developed on an Apple M2 Pro with 16GB memory, the 7B param
+version was used in the following walkthrough. Specs for Qwen2.5-Coder:
+```
+% ollama show qwen2.5-coder
+  Model
+    architecture        qwen2
+    parameters          7.6B
+    context length      32768
+    embedding length    3584
+    quantization        Q4_K_M
 
+  Capabilities
+    completion
+    tools
+    insert
+
+  System
+    You are Qwen, created by Alibaba Cloud. You are a helpful assistant.
+
+  License
+    Apache License
+    Version 2.0, January 2004
+    ...
+```
+
+Visit [Ollama's model library](https://ollama.com/library) to browse other available models. You can
+use another model by swapping out the model name anywhere that `qwen2.5-coder` is referenced in the
+procedure.
 
 ## Quick Start
 
@@ -67,17 +92,17 @@ See [System Requirements](#system-requirements) and [Setup Procedure](#setup-pro
 6. Download a model to the USB:
 
     ```bash
-    ollama pull codellama
+    ollama pull qwen2.5-coder
     ```
 
 7. **CLI**: Run the following command to use Lexicon from the command line, fully offline. **Note**: wait for the `>>>` prompt to
     begin typing your question, and run `/?` to see available commands:
 
     ```bash
-    ollama run codellama
+    ollama run qwen2.5-coder
     ```
     ```
-    % ollama run codellama
+    % ollama run qwen2.5-coder
     >>> /?
     Available Commands:
       /set            Set session variables
@@ -109,7 +134,8 @@ See [System Requirements](#system-requirements) and [Setup Procedure](#setup-pro
     You can also use a `for` loop to iterate . . .
     ```
 
- 8. **Web UI**: Open the following in your web browser to use the Lexicon web interface, fully offline:
+ 8. **Web UI**: Open the following in your web browser to use the Lexicon web interface, fully
+ offline. Note: the model make longer to load on the first prompt:
 
     ```
     http://localhost:8000
@@ -117,7 +143,7 @@ See [System Requirements](#system-requirements) and [Setup Procedure](#setup-pro
 
 ## System Requirements
 
-Lexicon is designed to run models on modern MacBooks with Apple Silicon and Metal-accelerated inference. 
+Lexicon is designed to run models on modern MacBooks with Apple Silicon and Metal-accelerated inference.
 Internet connection is required for initial setup only.
 
 ### Computer
@@ -246,7 +272,7 @@ ollama serve
 
 - In another terminal pane on your computer, use Ollama to download a quantized model[^1] onto the USB drive:
 ```bash
-ollama pull codellama
+ollama pull qwen2.5-coder
 ```
 
 - To confirm that the model has downloaded onto the USB drive, check its disk usage. You should see around 4GB in the `models/` directory:
@@ -282,12 +308,13 @@ When you run Lexicon's local web server, macOS may prompt:
 - This is **NOT** triggered by any request for WAN access.
 - `http.server` is serving local requests only to your browser on `localhost:8000`.
 - macOS firewall still sees the activity as a request for network access.
-- You can safely allow this and continue to use Lexicon fully offline. 
+- You can safely allow this and continue to use Lexicon fully offline.
 - If you deny it, the web UI will fail to load locally but the CLI option will still function.
 
 ## References
 
 - [Ollama Runtime](https://ollama.com)
+- [Qwen2.5-Coder Model](https://ollama.com/library/qwen2.5-coder)
 - [CodeLlama Model](https://ollama.com/library/codellama)
 - [List of Available Models](https://ollama.com/library)
 - [Ollama GitHub (Open Source)](https://github.com/ollama/ollama)
